@@ -1,6 +1,6 @@
 package com.mellys;
 
-import piece.CoordinatesShift;
+import com.mellys.piece.CoordinatesShift;
 
 import java.util.Objects;
 
@@ -38,5 +38,10 @@ public class Coordinates {
     @Override
     public int hashCode() {
         return Objects.hash(file, rank);
+    }
+
+    @Override
+    public String toString(){
+        return file + String.valueOf(rank);
     }
 }

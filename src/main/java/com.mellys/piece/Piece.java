@@ -1,4 +1,4 @@
-package piece;
+package com.mellys.piece;
 
 import com.mellys.Board;
 import com.mellys.Color;
@@ -30,8 +30,8 @@ abstract public class Piece {
         return result;
     }
 
-    private boolean isSquareAvailableForMove(Coordinates coordinates, Board board) {
-        return board.isSquareEmpty(coordinates) || board.getPieceByCoordinates(coordinates).color != color;
+    protected boolean isSquareAvailableForMove(Coordinates coordinates, Board board) {
+        return board.isSquareEmpty(coordinates) || board.getPiece(coordinates).color != color;
     }
 
     protected abstract Set<CoordinatesShift>getPieceMoves();

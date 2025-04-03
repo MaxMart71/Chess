@@ -1,27 +1,18 @@
 package com.mellys;
 
+import com.mellys.piece.*;
 import piece.*;
 
 import java.util.HashMap;
 
 public class Board {
     HashMap<Coordinates, Piece> pieces = new HashMap<>();
-
     public void setPiece(Coordinates coordinates, Piece piece){
         piece.coordinates = coordinates;
         pieces.put(coordinates, piece);
     }
 
-    public void removePiece(Coordinates coordinates){
-        pieces.remove(coordinates);
-    }
 
-    public void movePiece(Coordinates from, Coordinates to){
-        Piece piece = getPieceByCoordinates(from);
-
-        removePiece(from);
-        setPiece(to, piece);
-    }
 
     public void setupDefaultPiecesPositions(){
         for (File file: File.values()){
@@ -52,6 +43,17 @@ public class Board {
 
     }
 
+    public void removePiece(Coordinates coordinates){
+        pieces.remove(coordinates);
+    }
+
+    public void movePiece(Coordinates from, Coordinates to){
+        Piece piece = getPiece(from);
+
+        removePiece(from);
+        setPiece(to, piece);
+    }
+
     public static boolean isSquareDark(Coordinates coordinates){
         return (((coordinates.file.ordinal() + 1) + coordinates.rank) % 2) == 0;
     }
@@ -60,7 +62,7 @@ public class Board {
         return !pieces.containsKey(coordinates);
     }
 
-    public Piece getPieceByCoordinates(Coordinates coordinates){
+    public Piece getPiece(Coordinates coordinates){
         return pieces.get(coordinates);
     }
 }

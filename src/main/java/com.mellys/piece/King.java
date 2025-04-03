@@ -1,12 +1,12 @@
-package piece;
+package com.mellys.piece;
 
 import com.mellys.Color;
 import com.mellys.Coordinates;
 
 import java.util.Set;
 
-public class Pawn extends Piece {
-    public Pawn(Color color, Coordinates coordinates) {
+public class King extends Piece {
+    public King(Color color, Coordinates coordinates) {
         super(color, coordinates);
     }
 

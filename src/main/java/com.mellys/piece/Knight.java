@@ -1,10 +1,8 @@
-package piece;
+package com.mellys.piece;
 
 import com.mellys.Color;
 import com.mellys.Coordinates;
-import piece.Piece;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;

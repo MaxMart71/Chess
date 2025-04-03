@@ -1,4 +1,4 @@
-package piece;
+package com.mellys.piece;
 
 public class CoordinatesShift {
     public final int fileShift;
