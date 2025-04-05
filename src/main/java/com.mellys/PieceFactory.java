@@ -1,7 +1,6 @@
 package com.mellys;
 
 import com.mellys.piece.*;
-import piece.*;
 
 public class PieceFactory {
     Piece fromFenChar(char fenChar, Coordinates coordinates){
