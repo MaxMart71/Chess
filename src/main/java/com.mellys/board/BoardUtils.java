@@ -1,4 +1,7 @@
-package com.mellys;
+package com.mellys.board;
+
+import com.mellys.Coordinates;
+import com.mellys.File;
 
 import java.util.ArrayList;
 import java.util.List;

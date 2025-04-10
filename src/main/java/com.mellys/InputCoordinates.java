@@ -1,5 +1,10 @@
 package com.mellys;
 
+import com.mellys.board.Board;
+import com.mellys.board.BoardConsoleRenderer;
+import com.mellys.board.BoardFactory;
+import com.mellys.board.Move;
+import com.mellys.piece.King;
 import com.mellys.piece.Piece;
 
 import java.util.Scanner;
@@ -70,6 +75,42 @@ public class InputCoordinates {
 
             return coordinates;
         }
+    }
+
+    public static Move inputMove(Board board, Color color, BoardConsoleRenderer renderer) {
+        while (true) {
+            Coordinates sourceCoordinates = InputCoordinates.inputPieceCoordinatesForColor(
+                    color, board
+            );
+
+            Piece piece = board.getPiece(sourceCoordinates);
+            Set<Coordinates> availableMoveSquares = piece.getAvailableMoveSquares(board);
+
+            renderer.render(board, piece);
+            Coordinates targetCoordinates = InputCoordinates.inputAvailableSquare(availableMoveSquares);
+
+            //checkIfKingInCheckAfterMove(from, to)
+            //System.out.println("Your king is under attack!");
+            //
+
+            Move move = new Move(sourceCoordinates, targetCoordinates);
+
+            if (validateIfKingInCheckAfterMove(board, color, move)){
+                System.out.println("Your king is under attack!");
+                continue;
+            }
+            return move;
+        }
+    }
+
+    private static boolean validateIfKingInCheckAfterMove(Board board, Color color, Move move) {
+        Board copy = (new BoardFactory()).copy(board);
+        copy.makeMove(move);
+
+        Piece king = copy.getPiecesByColor(color).stream().filter(piece -> piece instanceof King).findFirst().get();
+
+        return copy.isSquareAttackedByColor(king.coordinates, color.opposite());
+
     }
 
     public static Coordinates inputAvailableSquare(Set<Coordinates> coordinates){

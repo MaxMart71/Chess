@@ -1,11 +1,15 @@
-package com.mellys;
+package com.mellys.board;
+
+import com.mellys.Coordinates;
+import com.mellys.File;
+import com.mellys.PieceFactory;
 
 public class BoardFactory {
 
     private PieceFactory pieceFactory =  new PieceFactory();
     public Board fromFEN(String fen) {
 
-        Board board = new Board();
+        Board board = new Board(fen);
         String[] parts = fen.split(" ");
         String piecePositions = parts[0];
 
@@ -32,5 +36,14 @@ public class BoardFactory {
         }
 
         return board;
+    }
+
+    public Board copy(Board source){
+        Board clone = fromFEN(source.startingFen);
+
+        for (Move move : source.moves) {
+            clone.makeMove(move);
+        }
+        return clone;
     }
 }

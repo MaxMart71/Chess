@@ -1,6 +1,11 @@
-package com.mellys;
+package com.mellys.board;
 
+
+import com.mellys.Color;
+import com.mellys.Coordinates;
+import com.mellys.File;
 import com.mellys.piece.Piece;
+
 
 import java.util.Set;
 

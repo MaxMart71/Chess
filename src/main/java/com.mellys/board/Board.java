@@ -1,12 +1,25 @@
-package com.mellys;
+package com.mellys.board;
 
+import com.mellys.Color;
+import com.mellys.Coordinates;
+import com.mellys.File;
 import com.mellys.piece.*;
-import piece.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
 
 public class Board {
-    HashMap<Coordinates, Piece> pieces = new HashMap<>();
+    public final String startingFen;
+    public HashMap<Coordinates, Piece> pieces = new HashMap<>();
+
+    public List<Move> moves = new ArrayList<>();
+
+    public Board(String startingFen) {
+        this.startingFen = startingFen;
+    }
+
     public void setPiece(Coordinates coordinates, Piece piece){
         piece.coordinates = coordinates;
         pieces.put(coordinates, piece);
@@ -47,11 +60,13 @@ public class Board {
         pieces.remove(coordinates);
     }
 
-    public void movePiece(Coordinates from, Coordinates to){
-        Piece piece = getPiece(from);
+    public void makeMove(Move move){
+        Piece piece = getPiece(move.from);
 
-        removePiece(from);
-        setPiece(to, piece);
+        removePiece(move.from);
+        setPiece(move.to, piece);
+
+        moves.add(move);
     }
 
     public static boolean isSquareDark(Coordinates coordinates){
@@ -64,5 +79,31 @@ public class Board {
 
     public Piece getPiece(Coordinates coordinates){
         return pieces.get(coordinates);
+    }
+
+    public boolean isSquareAttackedByColor(Coordinates coordinates, Color color) {
+        List<Piece> pieces = getPiecesByColor(color);
+
+        for (Piece piece : pieces) {
+            Set<Coordinates> attackedSquares = piece.getAttackedSquares(this);
+
+            if (attackedSquares.contains(coordinates)){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public List<Piece> getPiecesByColor(Color color) {
+        List<Piece> result = new ArrayList<>();
+
+        for (Piece piece : pieces.values()){
+            if (piece.color == color){
+                result.add(piece);
+            }
+        }
+
+        return result;
     }
 }
